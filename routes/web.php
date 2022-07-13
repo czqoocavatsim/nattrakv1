@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdministrationController;
 use App\Http\Controllers\ClxMessagesController;
+use App\Http\Controllers\NotamsController;
 use App\Http\Controllers\RclMessagesController;
 use App\Http\Controllers\VatsimAuthController;
 use Illuminate\Support\Facades\Cache;
@@ -50,6 +51,10 @@ Route::prefix('administration')->name('administration')->middleware('can:adminis
     Route::post('/controllers/remove-access', [AdministrationController::class, 'removeControllerAccess'])->name('.controllers.remove-access');
 
     Route::get('/activity-log', [AdministrationController::class, 'activityLog'])->name('.activity-log');
+
+    Route::prefix('notams')->name('.notams')->controller(NotamsController::class)->group(function () {
+       Route::get('/', 'index')->name('.index');
+    });
 });
 
 Route::prefix('pilots')->name('pilots')->middleware('can:activePilot')->group(function () {

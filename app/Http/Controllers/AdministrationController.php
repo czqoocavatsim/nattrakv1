@@ -108,4 +108,6 @@ class AdministrationController extends Controller
             'log' => Activity::all()
         ]);
     }
+
+
 }
