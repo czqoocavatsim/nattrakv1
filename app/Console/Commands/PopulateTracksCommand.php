@@ -14,11 +14,11 @@ class PopulateTracksCommand extends Command
 
     protected $description = 'Populate active NAT tracks';
 
-    const TRACK_API_ENDPOINT = "https://tracks.ganderoceanic.ca/data";
+
 
     public function handle()
     {
-        $endpoint = self::TRACK_API_ENDPOINT;
+        $endpoint = config('services.tracks.endpoint');
         if ($this->option('url')) {
             $endpoint = $this->option('url');
         }
@@ -44,15 +44,15 @@ class PopulateTracksCommand extends Command
         }
 
         foreach ($tracks as $track) {
-            $this->line("Processing track identifier {$track->id} ...");
+            $this->line("Processing track identifier {$track->ID} ...");
             $routeingString = '';
-            foreach ($track->route as $fix) {
-                $routeingString .= "$fix->name ";
+            foreach ($track->Route as $fix) {
+                $routeingString .= "$fix->Name ";
             }
-            Track::updateOrCreate(['identifier' => $track->id], [
+            Track::updateOrCreate(['identifier' => $track->ID], [
                 'last_routeing' => trim($routeingString),
-                'valid_from' => Carbon::createFromTimestamp($track->validFrom),
-                'valid_to' => Carbon::createFromTimestamp($track->validTo),
+                'valid_from' => Carbon::createFromTimestamp($track->ValidFrom),
+                'valid_to' => Carbon::createFromTimestamp($track->ValidTo),
                 'active' => true,
                 'last_active' => now()
             ]);

@@ -40,6 +40,7 @@ return [
     ],
 
     'tracks' => [
+        'endpoint' => env('VNAAATS_TRACKS_ENDPOINT', 'https://tracks.ganderoceanic.ca/'),
         'auto_update' => env('UPDATE_TRACKS', true),
         'override_tmi' => env('OVERRIDE_TMI', null)
     ],
